@@ -55,7 +55,7 @@ if [ $? -ne 0 ]; then
     useradd expense &>> $log_file_name
     VALIDATE $? "user add"
 else
-    echo -e "user already exists.. $Y user creation skipped"
+    echo -e "user already exists.. $Y user creation skipped $N"
 fi
 
 rm -rf /app
@@ -89,7 +89,7 @@ dnf install mysql -y &>> $log_file_name
 VALIDATE $? "mysql client install"
 
 #Load Schema
-mysql -h mysql.devopsaws82s.online -uroot -pExpenseApp@1 < /app/schema/backend.sql
+mysql -h mysql.devopsaws82s.online -uroot -pExpenseApp@1 < /app/schema/backend.sql &>> $log_file_name
 VALIDATE $? "transaction schema creation"
 
 mysql -h mysql.devopsaws82s.online -u root -pExpenseApp@1 -e "show databases;" &>> $log_file_name
