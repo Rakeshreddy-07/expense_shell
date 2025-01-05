@@ -8,13 +8,13 @@ N="\e[0m"
 
 #log file location
 timestamp=$(date +%Y-%m-%d-%H:%M:%S)
-log_location="/var/log/shellscript_logs"
+log_location="/var/log/expense_logs"
 log_file=$(echo $0 | cut -d "." -f1)
 log_file_name="$log_location/$log_file-$timestamp.log"
 
 
 
-mkdir -p /var/log/shellscript_logs
+mkdir -p $log_location
 
 
 #check user id sudo access to run the script
