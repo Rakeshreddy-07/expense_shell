@@ -58,6 +58,7 @@ else
     echo -e "user already exists.. $Y user creation skipped"
 fi
 
+rm -rf /app
 
 mkdir -p /app &>> $log_file_name
 VALIDATE $? "creating Directory"
