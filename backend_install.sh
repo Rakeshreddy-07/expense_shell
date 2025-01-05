@@ -55,11 +55,11 @@ if [ $? -ne 0 ]; then
     useradd expense &>> $log_file_name
     VALIDATE $? "user add"
 else
-    echo "user already exists.. $Y user creation skipped"
+    echo -e "user already exists.. $Y user creation skipped"
 fi
 
 
-mkdir /app &>> $log_file_name
+mkdir -p /app &>> $log_file_name
 VALIDATE $? "creating Directory"
 
 curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip
