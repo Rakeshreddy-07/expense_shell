@@ -53,14 +53,15 @@ fi
 
 #Start MySQL Service and enable
 systemctl enable mysqld &>> $log_file_name
-VALIDATE $?
-systemctl start mysqld &>> $log_file_name
-VALIDATE $?
-systemctl status mysqld 
+VALIDATE $? "enabling mysql server"
+
+systemctl restart mysqld &>> $log_file_name
+VALIDATE $? "starting mysql server"
+
+systemctl status mysqld &>> $log_file_name
 
 #change the default root password
 mysql_secure_installation --set-root-pass ExpenseApp@1 &>> $log_file_name
 VALIDATE $? "Password change"
 
-mysql -h mysql.devopsaws82s.online -u root -pExpenseApp@1 ; 
 
