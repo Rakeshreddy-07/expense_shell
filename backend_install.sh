@@ -56,6 +56,8 @@ VALIDATE $? "user add"
 mkdir /app &>> $log_file_name
 VALIDATE $? "creating Directory"
 
+curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip
+
 cd /app
 
 unzip /tmp/backend.zip &>> $log_file_name
