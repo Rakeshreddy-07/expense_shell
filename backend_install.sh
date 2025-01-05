@@ -50,7 +50,7 @@ VALIDATE $? "nodejs:20 enable"
 dnf install nodejs -y &>> $log_file_name
 VALIDATE $? "nodejs install"
 
-awk -F ':' '{ print $1 }' /etc/passwd | grep expense
+awk -F ':' '{ print $1 }' /etc/passwd | grep expense &>> $log_file_name
 if [ $? -ne 0 ]; then
     useradd expense &>> $log_file_name
     VALIDATE $? "user add"
@@ -63,7 +63,7 @@ rm -rf /app
 mkdir -p /app &>> $log_file_name
 VALIDATE $? "creating Directory"
 
-curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip
+curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>> $log_file_name
 
 cd /app
 
@@ -72,6 +72,7 @@ unzip /tmp/backend.zip &>> $log_file_name
 #install dependencies
 cd /app
 npm install &>> $log_file_name
+VALIDATE $? "install dependencies"
 
 cp /home/ec2-user/backend.txt /etc/systemd/system/backend.service
 
