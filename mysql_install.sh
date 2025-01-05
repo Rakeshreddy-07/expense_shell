@@ -40,3 +40,31 @@ VALIDATE () {
 
 #calling this function to check if sudo access is enabled or not
 CHECK_ROOT
+
+#Install MySQL Server 8.0.x
+dnf list installed mysql
+if [ $? -ne 0 ]; then
+    dnf install mysql-server -y &>> $log_file_name
+    VALIDATE $? "MYSQL installation"
+    else
+    echo -e "mysql already $Y installed $N"
+fi
+
+
+#Start MySQL Service and enable
+systemctl enable mysqld
+VALIDATE $?
+systemctl start mysqld
+VALIDATE $?
+systemctl status mysqld
+VALIDATE $?
+
+#change the default root password
+mysql_secure_installation --set-root-pass ExpenseApp@1 &>> $log_file_name
+VALIDATE $? "Password change"
+
+mysql -h mysql.devopsaws82s.online -u root -pExpenseApp@1
+
+mysql
+
+show databases;
