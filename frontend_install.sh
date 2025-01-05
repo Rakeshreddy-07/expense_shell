@@ -42,7 +42,7 @@ VALIDATE () {
 CHECK_ROOT
 
 dnf list installed nginx
-if  [ $? -ne 0]; then
+if  [ $? -ne 0 ]; then
     echo "Installing nginx"
     dnf install nginx -y &>> $log_file_name
     VALIDATE $? "nginx install"
