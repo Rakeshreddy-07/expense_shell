@@ -51,10 +51,10 @@ else
 fi
 
 systemctl enable nginx &>> $log_file_name
-VALIDATE $? "nginx install"
+VALIDATE $? "nginx enable"
 
 systemctl start nginx &>> $log_file_name
-VALIDATE $? "nginx install"
+VALIDATE $? "nginx start"
 
 rm -rf /usr/share/nginx/html/*
 
@@ -67,3 +67,4 @@ unzip /tmp/frontend.zip &>> $log_file_name
 cp /home/ec2-user/expense_shell/expense.txt /etc/nginx/default.d/expense.conf
 
 systemctl restart nginx &>> $log_file_name
+VALIDATE $? "nginx restart"
