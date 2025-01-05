@@ -50,8 +50,15 @@ VALIDATE $? "nodejs:20 enable"
 dnf install nodejs -y &>> $log_file_name
 VALIDATE $? "nodejs install"
 
-useradd expense &>> $log_file_name
-VALIDATE $? "user add"
+username=$(awk -F ':' '{ print $1 }' /etc/passwd | grep expense)
+
+If [ $username -ne 0 ]; then
+    useradd expense &>> $log_file_name
+    VALIDATE $? "user add"
+else
+    echo "user already exists.. $Y user creation skipped"
+fi
+
 
 mkdir /app &>> $log_file_name
 VALIDATE $? "creating Directory"
