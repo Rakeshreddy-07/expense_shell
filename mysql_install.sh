@@ -61,7 +61,16 @@ VALIDATE $? "starting mysql server"
 systemctl status mysqld &>> $log_file_name
 
 #change the default root password
-mysql_secure_installation --set-root-pass ExpenseApp@1 &>> $log_file_name
-VALIDATE $? "Password change"
+
+mysql -h mysql.devopsaws82s.online -u root -pExpenseApp@1 -e "show databases;" &>> $log_file_name
+if [ $? -ne 0 ]; then
+    echo -e "mysql root password is not set.. changing the root password now"
+    mysql_secure_installation --set-root-pass ExpenseApp@1 &>> $log_file_name
+    VALIDATE $? "Password change"
+else
+    echo "mysql root Password already changed"
+fi
+
+
 
 
