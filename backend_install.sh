@@ -50,9 +50,8 @@ VALIDATE $? "nodejs:20 enable"
 dnf install nodejs -y &>> $log_file_name
 VALIDATE $? "nodejs install"
 
-username=$(awk -F ':' '{ print $1 }' /etc/passwd | grep expense)
-
-If [ $username -ne 0 ]; then
+awk -F ':' '{ print $1 }' /etc/passwd | grep expense
+if [ $? -ne 0 ]; then
     useradd expense &>> $log_file_name
     VALIDATE $? "user add"
 else
